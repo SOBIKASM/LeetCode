@@ -1,0 +1,32 @@
+Input: nums = [5,4,2,3]
+Output: [3,2,5,4]
+
+
+class Solution:
+    def numberGame(self, nums: List[int]) -> List[int]:
+        arr = []
+        for i in range(len(nums)//2):
+            alice  = min(nums)
+            nums.remove(alice)
+            bob = min(nums)
+            nums.remove(bob)
+            arr.append(bob)
+            arr.append(alice)
+        return arr
+
+
+class Solution:
+    def numberGame(self, nums: List[int]) -> List[int]:
+        nums.sort()
+        
+        for i in range(0, len(nums), 2):
+            nums[i], nums[i+1] = nums[i+1], nums[i]
+            
+        return nums
+
+class Solution:
+    def numberGame(self, nums: List[int]) -> List[int]:
+        nums.sort()
+        return [nums[i^1] for i in range(len(nums))]
+
+i carrot 1 - flips last bit 1 and 1, 2 and 3,...viceversa
