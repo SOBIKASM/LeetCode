@@ -1,0 +1,51 @@
+class Solution:
+    def minOperations(self, boxes: str) -> List[int]:
+        n = len(boxes)
+        ans = [0]*n
+        for i in range(n):
+            for j in range(n):
+                if boxes[j]=='1':
+                    ans[i]+=abs(j-i)
+        return ans
+
+
+class Solution:
+    def minOperations(self, boxes: str) -> List[int]:
+        n = len(boxes)
+        
+        # Result array where ans[i] = total moves to bring all balls to index i
+        ans = [0] * n
+        
+        # ---------- LEFT TO RIGHT PASS ----------
+        count = 0   # number of balls ('1's) seen so far
+        cost = 0    # total cost to bring those balls to current index
+        
+        for i in range(n):
+            # Add current accumulated cost to answer
+            ans[i] += cost
+            
+            # If current box has a ball, increase count
+            if boxes[i] == '1':
+                count += 1
+            
+            # When moving to next index:
+            # each existing ball is 1 step farther → add count to cost
+            cost += count
+        
+        # ---------- RIGHT TO LEFT PASS ----------
+        count = 0   # reset count for right side
+        cost = 0    # reset cost for right side
+        
+        for i in range(n - 1, -1, -1):
+            # Add cost from right side balls
+            ans[i] += cost
+            
+            # If current box has a ball, increase count
+            if boxes[i] == '1':
+                count += 1
+            
+            # Moving left:
+            # each ball on the right becomes 1 step farther
+            cost += count
+        
+        return ans
